@@ -20,10 +20,12 @@ public class ProjectController {
     @Autowired
     private MapValidationErrorService mapValidationErrorService;
 
+    // Create / Update a Project
     @PostMapping("")
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationErrorService(result);
 
+        // Invokes custom error message
         if(errorMap != null){
             return errorMap;
         }
@@ -32,14 +34,25 @@ public class ProjectController {
         return new ResponseEntity<Project>(project, HttpStatus.CREATED);
     }
 
+    // Find Individual Projects
     @GetMapping("/{projectId}")
     public ResponseEntity<?> getProjectBbyId(@PathVariable String projectId) {
         Project project = projectService.findProjectByIdentifier(projectId);
         return new ResponseEntity<Project>(project, HttpStatus.OK);
     }
 
+    // Find All Projects
     @GetMapping("/all")
     public Iterable<Project> getAllProject() {
         return projectService.findAllProjects();
     }
+
+    //Delete project by identifier
+    // Return a validation message for successful deletion
+    @DeleteMapping("/{projectId}")
+    public ResponseEntity<?> deleteProject(@PathVariable String projectId) {
+        projectService.deleteProjectByIdentifier(projectId);
+        return new ResponseEntity<String>("Project with ID: " + projectId.toUpperCase() + " was successfully deleted", HttpStatus.OK);
+    }
+
 }
