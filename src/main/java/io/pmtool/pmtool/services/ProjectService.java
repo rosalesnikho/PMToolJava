@@ -11,13 +11,25 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    // Save new projects
+    // If the project ID already exists in the db, throws an error to the user
     public Project saveOrUpdateProject (Project project) {
         try{
             project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
             return projectRepository.save(project);
         }catch (Exception e) {
-            throw new ProjectIdException("Project ID " + project.getProjectIdentifier().toUpperCase() + " already exist!");
+            throw new ProjectIdException("Project ID: " + project.getProjectIdentifier().toUpperCase() + " already exist!");
         }
+    }
+
+    // Get Project by unique identifier
+    // If the project is null, throws a custom error message to user
+    public Project findProjectByIdentifier(String projectId) {
+        Project project  = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+        if(project == null) {
+            throw new ProjectIdException("Project ID " + projectId.toUpperCase() + " does not exist!");
+        }
+        return project;
     }
 }
 
