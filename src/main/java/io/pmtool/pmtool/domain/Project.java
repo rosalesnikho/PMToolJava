@@ -19,7 +19,7 @@ public class Project {
     private String projectName;
 
     @NotBlank(message = "Project Identifier is required")
-    @Size(min=4, max=6, message = "Please use 4 - 9 characters")
+    @Size(min=4, max=128, message = "Please use 4 - 128 characters")
     @Column(updatable = false, unique = true)
     private String projectIdentifier;
 

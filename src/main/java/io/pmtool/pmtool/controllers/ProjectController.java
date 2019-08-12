@@ -21,6 +21,7 @@ public class ProjectController {
     private MapValidationErrorService mapValidationErrorService;
 
     // Create / Update a Project
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("")
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationErrorService(result);
