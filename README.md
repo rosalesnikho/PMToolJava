@@ -1,4 +1,4 @@
-##Project Management Tool | Front End
+## Project Management Tool | Front End
 
 This is the back-end of PMT using the following stack. The backend API can be found here: https://github.com/rosalesnikho/PMToolReact
 
